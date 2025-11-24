@@ -1,0 +1,55 @@
+Passo a Passo da Lógica de Cada Desafio
+
+Desafio 1 — Detectar Sessões Inválidas
+
+1.  Criar uma pilha para cada usuário.
+2.  Para cada linha do CSV:
+    -   Se for LOGIN:
+        -   Se a pilha não estiver vazia → sessão atual é inválida.
+        -   Empurrar o novo sessionId na pilha.
+    -   Se for LOGOUT:
+        -   Se a pilha está vazia → logout inválido.
+        -   Se o topo da pilha é diferente do sessionId → inválido.
+        -   Senão → remover da pilha.
+3.  Após processar tudo:
+    -   Sessões restantes na pilha são inválidas (não tiveram logout).
+4.  Retornar todas as sessões inválidas.
+
+Desafio 2 — Reconstruir Linha do Tempo
+
+1.  Ler cada linha do CSV.
+2.  Filtrar somente registros com o sessionId solicitado.
+3.  Coletar apenas o campo action_type.
+4.  A ordem já está cronológica, então basta retornar como está.
+
+Desafio 3 — Priorizar Alertas
+
+1.  Ler todos os registros do CSV.
+2.  Converter cada registro em um objeto Alerta.
+3.  Inserir todos em uma PriorityQueue ordenada por severity_level
+    (maior primeiro).
+4.  Remover os n elementos do topo (os mais severos).
+5.  Retornar a lista com os top N alertas.
+
+Desafio 4 — Encontrar Picos de Transferência (Next Greater Element)
+
+1.  Ler todos os eventos com seus bytes_transferidos.
+2.  Percorrer a lista do fim para o começo.
+3.  Usar uma pilha armazenando apenas eventos com bytes maiores (pilha
+    decrescente).
+4.  Para cada evento:
+    -   Remover da pilha todos os valores menores/iguais.
+    -   O topo da pilha vira o próximo evento com bytes maiores.
+    -   Adicionar o evento atual na pilha.
+5.  Retornar o mapa timestamp → próximo timestamp maior.
+
+Desafio 5 — Rastrear Contaminação entre Recursos (BFS)
+
+1.  Agrupar eventos por sessão.
+2.  Criar um grafo: para cada par consecutivo de recursos na mesma
+    sessão, criar aresta A → B.
+3.  Rodar BFS começando em recursoInicial.
+4.  Armazenar o predecessor de cada nó visitado.
+5.  Quando chegar ao recursoAlvo, reconstruir o caminho usando os
+    predecessores.
+6.  Se não encontrar, retornar vazio (Optional.empty()).
